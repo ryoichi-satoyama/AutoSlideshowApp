@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                 uriList = getContentInfo()
+                showImage(position)
             } else {
                 requestPermissions(
                     arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
@@ -41,10 +42,10 @@ class MainActivity : AppCompatActivity() {
             }
         } else {
             uriList = getContentInfo()
+            showImage(position)
         }
 
-        //最初のイメージ表示
-        showImage(position)
+
 
         //進むボタン押下時の処理
         advanceButton.setOnClickListener {
