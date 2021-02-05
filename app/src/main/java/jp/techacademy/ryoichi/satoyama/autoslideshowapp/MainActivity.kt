@@ -20,7 +20,8 @@ import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
     private val PERMISSIONS_REQUEST_CODE = 100 //パーミッションリクエストコード
-    private var uriList: ArrayList<Uri>? = null //イメージのURIリスト
+//    private var uriList: ArrayList<Uri>? = null //イメージのURIリスト
+    private lateinit var uriList: ArrayList<Uri>
     private var position = 0 //表示するイメージの位置
     private var mHandler = Handler() //ハンドラーの取得
     private var mTimer: Timer? = null //タイマーの変数
@@ -80,7 +81,7 @@ class MainActivity : AppCompatActivity() {
 
     //次のイメージを表示する処理
     private fun advanceImage() {
-        val size = uriList!!.size
+        val size = uriList.size
         if ((position + 1) == size) {
             position = 0
         } else {
@@ -91,7 +92,7 @@ class MainActivity : AppCompatActivity() {
 
     //前のイメージを表示する処理
     private fun backImage() {
-        val size = uriList!!.size
+        val size = uriList.size
         if ((position) == 0) {
             position = size - 1
         } else {
@@ -102,9 +103,7 @@ class MainActivity : AppCompatActivity() {
 
     //イメージを表示する処理
     private fun showImage(position: Int) {
-        if (uriList != null) {
-            imageView.setImageURI(uriList!![position])
-        }
+        imageView.setImageURI(uriList[position])
     }
 
     //スライドショーを開始する処理
@@ -135,6 +134,7 @@ class MainActivity : AppCompatActivity() {
             null
         )
         val uriList = ArrayList<Uri>()
+
         if (cursor!!.moveToFirst()) {
             do {
                 val fieldIndex = cursor.getColumnIndex(MediaStore.Images.Media._ID)
@@ -145,8 +145,9 @@ class MainActivity : AppCompatActivity() {
                         id
                     )
                 )
-            } while (cursor!!.moveToNext())
+            } while (cursor.moveToNext())
         }
+
         cursor.close()
         return uriList
     }
