@@ -23,7 +23,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="進む"
-            android:id="@+id/goButton"/>
+            android:id="@+id/advanceButton"/>
 
         <Button
             android:layout_width="0dp"
